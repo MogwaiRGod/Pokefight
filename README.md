@@ -127,7 +127,8 @@ I-->A(Controller.php)
 
 
 ### models
-> Voir **Pokéfight_diagrammes** pour les diagrammes de classe.<br>
+> Voir **Pokéfight_diagrammes** pour les diagrammes de classe.
+
 | Classe | Contenu |
 |:--:|:--|
 | Joueur.php |  |
