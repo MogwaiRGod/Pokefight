@@ -16,7 +16,7 @@ function connectToDB() {
             $user,
             $pass
         );
-        $dbCoBB->setAttribute(
+        $dbCo->setAttribute(
             /* On active le report d'erreur de PDO */
             PDO::ATTR_ERRMODE,
             /* On demande qu'en cas d'erreur, des Exceptions PDO soient soulevées */ 

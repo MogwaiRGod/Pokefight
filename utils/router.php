@@ -24,6 +24,7 @@ if ($params[0]) {
     $controller = $params[0];
 
 } else {
+    // pas de paramètre => page d'accueil
     $controller = 'Home';
 }
 if (isset($params[1])) {

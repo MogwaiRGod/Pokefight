@@ -4,4 +4,4 @@
 require_once 'error_handler.php';
 require_once 'utils.php';
 require_once 'autoload.php';
-// require_once 'router.php';
+require_once 'router.php';
