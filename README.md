@@ -51,7 +51,7 @@ Pour ouvrir le site, ouvrir un navigateur et entrer ``localhost``.
 
 # Introduction
 ## Contexte du projet
-Ce projet a été réalisé dans le cadre d'une formation en développement web. Il a pour but d'évaluer la mise en place d'un projet respectant une architecture MVC, l'application du langage PHP et de la POO, et d'autres compétences (création/gestion d'une BDD, fonctionnalités de signin/login etc.)
+Ce projet a été réalisé dans le cadre d'une formation en développement web. Il a pour but d'évaluer la mise en place d'un projet respectant une **architecture MVC**, **l'application du langage PHP et de la POO**, et d'autres compétences (création/gestion d'une BDD, fonctionnalités de signin/login etc.)
 
 ## Description du projet
 
@@ -122,12 +122,17 @@ I-->A(Controller.php)
 ### racine
 | Fichier | Contenu |
 |:--:|:--|
-| .htaccess ||
-| index.php ||
+| .htaccess | Fichier permettant la réécriture des URL du script. Les URL seront alors sous forme ``localhost/param/param..`` au lieu de ``localhost?p=param&p2=param2...``|
+| index.php | Page d'accueil = point d'entrée du site |
 
 
 ### models
 > Voir **Pokéfight_diagrammes** pour les diagrammes de classe.<br>
+| Classe | Contenu |
+|:--:|:--|
+| Joueur.php |  |
+| Pokemon.php | |
+| Potion.php | |
 
 ### views
 
