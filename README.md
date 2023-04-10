@@ -13,21 +13,21 @@ Diane (MogwaiRGod)
     1. [Prérequis](#prérequis)
     2. [Installation](#installation)
 1. [Introduction](#introduction)
-    1. [Contexte du projet](#contexte)
-    2. [Description du projet](#description)
+    1. [Contexte du projet](#contexte-du-projet)
+    2. [Description du projet](#description-du-projet)
 2. [Architecture](#architecture)
     1. [Organigramme](#organigramme)
-    2. [Architecture détaillée](#architecture)
-        1. [racine](#racine)
-        2. [models](#models)
-        3. [views](#views)
-        4. [controllers](#controllers)
+    2. [Architecture détaillée](#architecture-détaillée)
+        1. [racine (/)](#racine)
+        2. [/models](#models)
+        3. [/views](#views)
+        4. [/controllers](#controllers)
         5. [Compléments du MVC](#compléments)
-            1. [DAO](#DAO)
-            2. [core](#core)
+            1. [/DAO](#DAO)
+            2. [.core](#core)
         6. [autres](#autres)
-            1. [config](#config)
-            2. [utils](#utils)
+            1. [/config](#config)
+            2. [/utils](#utils)
 3. [Technologies](#technologies)
 4. [Fonctionnement](#fonctionnement)
 5. [Utilisation (client)](#utilisation)
@@ -122,33 +122,69 @@ I-->A(Controller.php)
 
 ## Architecture détaillée
 
-### racine
+### **racine (/)**
 | Fichier | Contenu |
 |:--:|:--|
 | .htaccess | Fichier permettant la réécriture des URL du script. Les URL seront alors sous forme ``localhost/param/param..`` au lieu de ``localhost?p=param&p2=param2...``|
 | index.php | Page d'accueil = point d'entrée du site |
 
 
-### models
+### **/models**
+Les modèles sont les classes d'objets. Elles effectuent la **logique métier**.
 > Voir **Pokéfight_diagrammes** pour les diagrammes de classe.
 
-| Classe | Contenu |
+| Classe | Méthodes |
 |:--:|:--|
-| Joueur.php |  |
-| Pokemon.php | |
-| Potion.php | |
+| Joueur.php | / |
+| Pokemon.php | Attaquer, boire des potions... |
+| Potion.php | / |
 
-### views
+### **/views**
 
-### controllers
+### **/controllers**
+Les controllers sont des classes qui vont effectuer les actions des pages demandées par l'utilisateur. 
+| Classe | Méthodes |
+|:--:|:--|
+| Combat.php | Lance un combat |
+| Login.php | Permet la connexion utilisateur |
+| Signin.php | Permet l'inscription utilisateur |
 
 ### Compléments du MVC
-#### DAO
-#### core
+#### **/DAO**
+Les DAO (Data Access Objects) sont une couche supplémentaire d'accès aux données. Le client interagit avec ces objets. Ils effectuent les **actions du CRUD**.
+| DAO |
+|:--:|:--|
+| CombatDAO.php |
+| JoueurDAO.php |
+| PokemonDAO.php |
+
+#### **/core**
+Contient les éléments fondamentaux du programme. Ici, il va simplement contenir le controller de base.
+| Fichier | Fonctionnalités |
+|:--:|:--| 
+| Controller.php | Classe abstraite. Permet de définir du contenu à afficher dans les pages, et d'afficher ce contenu. |
 
 ### autres
-#### config
-#### utils
+#### **/config**
+Ce dossier n'est pas nécessaire au fonctionnement du site. Il contient simplement des fichiers à utiliser manuellement pour l'installation du programme, à savoir la **structure des tables de la BDD.**<br>
+> Voir **pokefight_diagrammes** pour le MCD/MLD des tables
+
+| Table | Commentaire |
+|:--:|:--| 
+| Combat.sql | Table relationnelle servant essentiellement à dégager des **statistiques** de combat |
+| Joueur.sql |  |
+| Pokemon.sql |  |
+| Potion.sql | |
+
+#### **/utils**
+Ce répertoire contient toutes les fonctionnalités n'appartenant à aucune des catégories plus haut.
+| Fichier | Fonctionnalité | 
+|:--:|:--|
+| autoload.php | Contient une fonction permettant d'importer (donc de déclarer) toutes les classe nécessaires au programme |
+|error_handler.php | Active l'affichage des errors, et autorise le report de *toutes* les erreurs |
+| router.php | Le router |
+| utils.php | Contient les constantes définissant les chemins de base, ainsi que li'import du controller principal (celui dont découlent tous les controllers) |
+| **init.php** | **Contient tous les fichiers d'utils => à importer au début du script (``index.php``)** |
 
 # Technologies
 
