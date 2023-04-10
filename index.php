@@ -17,6 +17,8 @@
             <h1>Pokéfight</h1>
             <h2>Elevez et envoyez à la mort vos Pokémons gratuitement !</h2>
 <?php
+/* IMPORTS */
+include 'utils/init.php';
 ?>
         </pre>
     </div>
