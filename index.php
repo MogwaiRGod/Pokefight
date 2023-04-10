@@ -19,6 +19,9 @@
 <?php
 /* IMPORTS */
 include 'utils/init.php';
+
+// tmp
+include 'test.php';
 ?>
         </pre>
     </div>
