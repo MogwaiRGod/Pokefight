@@ -151,12 +151,19 @@ Les controllers sont des classes qui vont effectuer les actions des pages demand
 
 ### Compléments du MVC
 #### **/DAO**
-Les DAO (Data Access Objects) sont une couche supplémentaire d'accès aux données. Le client interagit avec ces objets. Ils effectuent les **actions du CRUD**.
+Les DAO (Data Access Objects) sont une couche supplémentaire d'accès aux données. Le client interagit avec ces objets. Ils effectuent les **actions du CRUD**. Les DAO interagissent donc à la fois avec le client et directement avec la BDD.
 | DAO |
-|:--:|:--|
+|:--:|
 | CombatDAO.php |
 | JoueurDAO.php |
 | PokemonDAO.php |
+
+Ce dossier contient également un dossier ``/database`` qui contient les éléments nécessaires à la connexion à la BDD.
+
+| Fichier | Contenu |
+|:--:|:--|
+| db_info.php | Variables de connexion à la BDD => **à modifier pour utiliser le site** |
+| database.php | Contient la fonction *connectToDB()* qui crée une connexion à la BDD |
 
 #### **/core**
 Contient les éléments fondamentaux du programme. Ici, il va simplement contenir le controller de base.
