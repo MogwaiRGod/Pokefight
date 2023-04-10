@@ -93,6 +93,9 @@ F[DAO]
 F-->A(CombatDAO.php)
 F-->B(JoueurDAO.php)
 F-->C(PokemonDAO.php)
+F-->D[database]
+D-->E(database.php)
+D-->E(db_info.php)
 ```	
 ```mermaid
 graph TD;
