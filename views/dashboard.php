@@ -1,11 +1,6 @@
-            <?php
-if (isset($update) && $update === true)  {
-  echo "màj en cours";
-} else {
-  ?>
             <!-- Message de bienvenue -->
             <h2>Bienvenue <?=$_SESSION['userName']?></h2>
-            <a id="upd">Modifier votre profil</a>
+            <a href="<?=$_SERVER['REQUEST_URI']?>" id="upd">Modifier votre profil</a>
 
             <!-- Statistiques -->
             <h3>Score : <?=$_SESSION['score']?></h3>
@@ -35,19 +30,8 @@ if (isset($update) && $update === true)  {
     <script>
       let btn = document.getElementById('fight');
       btn.addEventListener('click', () => {
-        location.href='views/combat.php';
-      });
-
-      let upd = document.getElementById('upd');
-      upd.addEventListener('click', () => {
-        <?php
-        $update = true;
-        header('Location: '.$_SERVER['REQUEST_URI']);
-        ?>
+        location.href='Combat/index';
       });
     </script>
   </body>
 </html>
-<?php
-}
-?>

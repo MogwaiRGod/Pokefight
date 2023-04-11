@@ -94,4 +94,4 @@ class JoueurDAO extends Controller {
     public function delete($id) {
     } // fin delete
 
-} // fin UserDAO
+} // fin JoueurDAO

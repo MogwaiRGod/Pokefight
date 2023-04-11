@@ -145,6 +145,8 @@ class Pokemon {
 
         // tableau contenant les 2 créatures
         $combattants = [$poke1, $poke2];
+        // tableau contenant les scores finaux
+        $score = [];
         // choix aléatoire du premier combattant à attaquer
         $tour = mt_rand(0,1);
 
@@ -167,8 +169,11 @@ class Pokemon {
             if (!$combattants[!$tour]->estVivant()) {
                 // affichage du message de fin
                 echo "<hr>" . $combattants[$tour]->getNom() . " a vaincu " . $combattants[!$tour]->getNom();
+                // on ajoute les scores
+                $score[$tour] = 3;
+                $score[!$tour] = 0;
                 // envoi des données du combat à la BDD
-                // $combat->create();
+                $combat->create($poke1, $poke2, $score[0], $score[1]);
                 return;
             }
             echo $combattants[!$tour] . "<br><hr>";
