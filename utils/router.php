@@ -33,15 +33,17 @@ if (isset($params[1])) {
     $method = 'Index';
 }
 if (isset($params[2])) {
-    $req = $params[2];
+    echo 'ok';
+    $args = $params[2];
 } else {
-    $req = '';
+    $args = '';
 }
 
 // $called est le chemin de la classe à appeler
 $called = 'controllers/' . $controller . '.php';
 // on importe le controller correspondant
 require ($called);
+// echo $called;
 
 // si une méthode a été entrée dans l'URL => 
 // vérification qu'elle existe

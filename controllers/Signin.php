@@ -24,24 +24,23 @@ class SignIn extends Controller {
             $newJoueur->create($_POST);
         }
         catch(Exception $e) {
+            // affichage de l'erreur le cas échéant
             echo $e->getMessage();
             return false;
         }
+        // affichage de la requête réussie
+        echo "Inscription enregistrée";
         // // si l'opération est un succès
         // $info['message'] = [
         //     'msg' => 'Utilisateur créé avec succès'
         // ];
-        // // on va loguer l'utilisateur et le rediriger vers son dashboard
 
-        // // on ajoute les infos pertinentes de l'utilisateur à la superglobale $_SESSION
-        // $_SESSION['idUser'] = 1; /* TEST */
-        // $_SESSION['userName'] = $_POST['userName'];
-        // // concatène $info à $content
-        // $this->set($info);
-        // // on a donc envoyé $info extrait en tant que clef => valeur à dashboard_tpl
-        // // càd que message est devenue une variable, plus précisément un tableau avec msg une clef
-        // // => $message['msg'] -> 'Utilisateur créé avec succès'
-        // $this->render('dashboard_tpl');
+        // on ajoute les infos pertinentes de l'utilisateur à la superglobale $_SESSION
+        $_SESSION['idUser'] = 1; /* TEST */
+        $_SESSION['userName'] = $_POST['iptUsername'];
+        $_SESSION['score'] = 0; /* par défaut */
+
+        return true;
     }
 
     public function checkUser() {

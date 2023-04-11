@@ -8,9 +8,8 @@ class JoueurDAO extends Controller {
     private $dbCo;
 
     /* C : CREATE */
-
     // méthode permettant d'ajouter un utilisateur à la BDD
-    public function create($data /* tableau associatif de données utilisateur */) {
+    public function create($data /* tableau associatif de données utilisateur */) : bool {
         /* connexion à la BDD */
         $this->dbCo = connectToDB();
 
@@ -20,24 +19,18 @@ class JoueurDAO extends Controller {
         // hashage du mdp avant envoi dans la BDD
         $password = hash('md5' /* algo */, $data['iptPw'] /* donnée */);
 
-        /* vérification des données = est-ce que le nom d'utilisateur demandé est déjà attribué ? */
+        /* vérification des données = est-ce que le nom d'utilisateur demandé est déjà attribué ? 
+        est-ce que le mail est déjà utilisé ? */
         // 1 : préparation de la requête de vérification
-        /* /!\ la méthode prepare() sur un objet PDO RETOURNE un objet PDOStatement :
-        représente une requête préparée =>
-        ici $checkData est un PDOStatement */
         $checkData = $this->dbCo->prepare("
             SELECT * FROM Joueur
-            WHERE (`pseudo` = :pseudo);
+            WHERE (`pseudo` = :pseudo) OR (`mail` = :mail) ;
         ");
-        // 2 : binding = association d'une valeur à un paramètre d'une requête préparée
-        $checkData->bindValue(
-            /* paramètre à remplacer dans la requête */
-            ':pseudo', 
-            /* valeur */
-            $userName
-        );
-        // 3 : exécution
-        $checkData->execute();
+        // 2-3 : binding + exécution
+        $checkData->execute([
+            ':pseudo' => $userName,
+            ':mail' => $mail
+        ]);
         // 4 : récupération des résultats
         /* fetch() : méthode de PDOStatement retournant la prochaine rangée de résultat de la requête */
         $result = $checkData->fetch(
@@ -48,11 +41,16 @@ class JoueurDAO extends Controller {
         // si le nom d'utilisateur est déjà pris
         if (isset($result['pseudo']) && $result['pseudo'] === $userName) {
             throw new Exception("Nom d'utilisateur non-disponible");
+            return false;
         }
-        // // sinon, requête préparée pour ajouter l'utilisateur à la BDD
-        else {
-            /* Requête préparée */
+        // si le mail est déjà utilisé
+        if (isset($result['mail']) && $result['mail'] === $mail) {
+            throw new Exception("Mél déjà utilisé");
+            return false;
+        }
 
+        // sinon, requête préparée pour ajouter l'utilisateur à la BDD
+        else {
             // préparation de la requête
             $statement = $this->dbCo->prepare("
                 INSERT INTO Joueur(pseudo, mail, mot_de_passe)
@@ -70,7 +68,30 @@ class JoueurDAO extends Controller {
             }
             catch (PDOException $e) {
                 echo $e->getMessage();
+                return false;
             } // fin try/catch
         } // fin si    
     } // fin create
+
+    /* R : READ */
+    // fonction permettant d'afficher une plusieurs données demandées 
+    // (tableau $requestedData)
+    // selon une donnée donnée (le mél, le nom d'utilisateur ou l'ID)
+    // $givenData est un tableau associatif "nom colonne" => donnée
+    public function read($givenData, $requestedData) {
+        /* connexion à la BDD */
+        $this->dbCo = connectToDB();
+
+    } // fin read
+
+    /* U : UPDATE */
+    public function update($id, $data) {
+    } // fin update
+
+    /* D : DELETE */
+    // méthode permettant de supprimer un utilisateur de la BDD selon son ID
+    // retourne un booléen selon l'issue de l'opération
+    public function delete($id) {
+    } // fin delete
+
 } // fin UserDAO

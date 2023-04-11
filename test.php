@@ -3,7 +3,7 @@
 /** 
  * Script des tests
  */
-
+include 'utils/init.php';
 // tests méthodes de base pokemon
 $poke = new Pokemon("Taupikeau", "eau");
 // echo $poke->getNom() . "<br>";

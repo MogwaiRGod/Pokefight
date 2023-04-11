@@ -140,6 +140,9 @@ class Pokemon {
 
     // méthode statique occasionnant un combat entre 2 pokémons
     public static function combat(Pokemon $poke1, Pokemon $poke2, $seuil = 40) : void {
+        // on instancie un combat
+        $combat = new CombatDAO();
+
         // tableau contenant les 2 créatures
         $combattants = [$poke1, $poke2];
         // choix aléatoire du premier combattant à attaquer
@@ -164,6 +167,8 @@ class Pokemon {
             if (!$combattants[!$tour]->estVivant()) {
                 // affichage du message de fin
                 echo "<hr>" . $combattants[$tour]->getNom() . " a vaincu " . $combattants[!$tour]->getNom();
+                // envoi des données du combat à la BDD
+                // $combat->create();
                 return;
             }
             echo $combattants[!$tour] . "<br><hr>";
