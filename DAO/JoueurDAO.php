@@ -26,11 +26,18 @@ class JoueurDAO extends Controller {
             SELECT * FROM Joueur
             WHERE (`pseudo` = :pseudo) OR (`mail` = :mail) ;
         ");
+
         // 2-3 : binding + exécution
-        $checkData->execute([
-            ':pseudo' => $userName,
-            ':mail' => $mail
-        ]);
+        try {
+            $checkData->execute([
+                ':pseudo' => $userName,
+                ':mail' => $mail
+            ]);
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+
         // 4 : récupération des résultats
         /* fetch() : méthode de PDOStatement retournant la prochaine rangée de résultat de la requête */
         $result = $checkData->fetch(
@@ -85,7 +92,10 @@ class JoueurDAO extends Controller {
     } // fin read
 
     /* U : UPDATE */
-    public function update($id, $data) {
+    // fonction permettant de màj une donnée de l'utilisateur sélectionné par son ID
+    // selon le nom de la donnée, et la valeur de la donnée ($data)
+    public function update(int $id, String $dataName, $data) : bool {
+        return true;
     } // fin update
 
     /* D : DELETE */

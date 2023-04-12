@@ -33,7 +33,7 @@ if (isset($params[1])) {
     $method = 'Index';
 }
 if (isset($params[2])) {
-    echo 'ok';
+    // echo 'ok';
     $args = $params[2];
 } else {
     $args = '';

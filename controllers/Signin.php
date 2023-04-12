@@ -42,19 +42,4 @@ class SignIn extends Controller {
 
         return true;
     }
-
-    public function checkUser() {
-        $checkUser = new UserDAO;
-        if ($checkUser->verify($_POST)) {
-            $info['tuto'] = [
-                'msg' => 'Bien le bonjour'
-            ];
-            $this->set($info);
-            $this->render('dashboard_tpl');
-        }
-        else {
-            // ! rediriger vers l'accueil avec message d'erreur
-            echo "Cet utilisateur n'existe pas";
-        }
-    }
 }

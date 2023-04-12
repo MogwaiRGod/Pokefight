@@ -4,7 +4,7 @@
 // (Objet PDO) de cette connexion
 function connectToDB() {
     // import des données d'accès à la BDD
-    require_once 'db_info.php';
+    require_once ROOT . 'DAO/database/db_info.php';
 
     // tentative de connexion
     try {
@@ -16,6 +16,7 @@ function connectToDB() {
             $user,
             $pass
         );
+        var_dump($dbCo);
         $dbCo->setAttribute(
             /* On active le report d'erreur de PDO */
             PDO::ATTR_ERRMODE,
@@ -23,12 +24,8 @@ function connectToDB() {
             PDO::ERRMODE_EXCEPTION
         );
     }
-    /* Une PDOException est une sous-classe d'Exception. C'est une Exception spécifique
-    à l'extension PDO. On l'utilise car cette Exception est soulevée à l'occurence d'une erreur
-    lors de l'exécution d'une requête */
     catch (PDOException $e) {
         echo $e->getMessage();
     }
-
     return $dbCo;
 }

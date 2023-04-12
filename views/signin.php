@@ -14,8 +14,6 @@
   <body>
     <div id="container">
         <pre>
-            <h1>Pokéfight</h1>
-            <h2>Elevez et envoyez à la mort vos Pokémons gratuitement !</h2>
             <h3>Inscription</h3>
             <!-- Formulaire d'inscription -->
             <form method="POST" action="addJoueur">

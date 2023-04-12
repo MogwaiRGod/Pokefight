@@ -2,7 +2,7 @@
             <h1>Pokéfight</h1>
             <h2>Elevez et envoyez à la mort vos Pokémons gratuitement !</h2>
             <!-- Formulaire de connexion -->
-            <form method="POST" action="Login/checkUser">
+            <form method="POST" action="Login/log/">
                 <label for="logUsername">Nom d'utilisateur</label>
                 <input name="logUsername" id="logUsername" type="text" placeholder="Nom d'utilisateur" value="XDDLPokemon">
                 <label for="logPw">Mot de passe</label>

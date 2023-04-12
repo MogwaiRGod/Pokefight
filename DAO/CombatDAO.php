@@ -1,7 +1,7 @@
 <?php
 
 // import de la fonction permettant de se connecter à la BDD
-require_once 'database/database.php';
+require_once ("database/database.php");
 
 class CombatDAO extends Controller {
     // va contenir la connexion à la BDD
@@ -52,5 +52,6 @@ class CombatDAO extends Controller {
             echo $e->getMessage();
             return false;
         }
+        return true;
     }
 }

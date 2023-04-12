@@ -30,7 +30,7 @@
     <script>
       let btn = document.getElementById('fight');
       btn.addEventListener('click', () => {
-        location.href='Combat/index';
+        location.href='<?=WEBROOT?>Combat/index';
       });
     </script>
   </body>
