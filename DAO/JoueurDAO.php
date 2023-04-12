@@ -21,11 +21,13 @@ class JoueurDAO extends Controller {
 
         /* vérification des données = est-ce que le nom d'utilisateur demandé est déjà attribué ? 
         est-ce que le mail est déjà utilisé ? */
-        // 1 : préparation de la requête de vérification
-        $checkData = $this->dbCo->prepare("
+        $statement = "
             SELECT * FROM Joueur
             WHERE (`pseudo` = :pseudo) OR (`mail` = :mail) ;
-        ");
+        ";
+
+        // 1 : préparation de la requête de vérification
+        $checkData = $this->dbCo->prepare($statement);
 
         // 2-3 : binding + exécution
         try {
@@ -47,6 +49,7 @@ class JoueurDAO extends Controller {
 
         // si le nom d'utilisateur est déjà pris
         if (isset($result['pseudo']) && $result['pseudo'] === $userName) {
+            // on envoie une exception
             throw new Exception("Nom d'utilisateur non-disponible");
             return false;
         }
@@ -58,11 +61,13 @@ class JoueurDAO extends Controller {
 
         // sinon, requête préparée pour ajouter l'utilisateur à la BDD
         else {
-            // préparation de la requête
-            $statement = $this->dbCo->prepare("
+            $statement = "
                 INSERT INTO Joueur(pseudo, mail, mot_de_passe)
                 VALUES (:pseudo, :mail, :mdp);
-            ");
+            ";
+
+            // préparation de la requête
+            $statement = $this->dbCo->prepare($statement);
 
             try {
             // binding + exécution de la requête
@@ -71,23 +76,57 @@ class JoueurDAO extends Controller {
                     ':mail' => $mail,
                     ':mdp' => $password
                 ));
-                return true;
             }
             catch (PDOException $e) {
                 echo $e->getMessage();
                 return false;
             } // fin try/catch
+
+            return true;
         } // fin si    
     } // fin create
 
     /* R : READ */
-    // fonction permettant d'afficher une plusieurs données demandées 
-    // (tableau $requestedData)
+    // fonction retournant une donnée demandée
+    // (chaine $requestedData)
     // selon une donnée donnée (le mél, le nom d'utilisateur ou l'ID)
-    // $givenData est un tableau associatif "nom colonne" => donnée
+    // $givenData est un tableau associatif "nom colonne" => chaîne d'UN SEULE ITEM
+    // retourne FAUX en cas d'erreur inattendue
     public function read($givenData, $requestedData) {
         /* connexion à la BDD */
         $this->dbCo = connectToDB();
+
+        // récupération des données
+        foreach($givenData as $key => $value) {
+            $column = $key;
+            $val = $value;
+        }
+
+        // requête à envoyer
+        $statement = "
+            SELECT $requestedData
+            FROM Joueur
+            WHERE `$column` = :donnee;
+        ";
+
+        // préparation de la requête
+        $query = $this->dbCo->prepare($statement);
+
+        // binding de la valeur
+        $query->bindValue(':donnee', $value);
+
+        // exécution
+        try {
+            $query->execute();
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+        // récupération du tableau de résultats
+        $result = $query->fetchAll();
+        
+        // on retourne le résultat demandé
+        return $result[0][$requestedData];
 
     } // fin read
 
@@ -112,7 +151,6 @@ class JoueurDAO extends Controller {
         // exécution de la requête
         try {
             $query->execute();
-            return true;
         }
         catch (PDOException $e) {
             echo $e->getMessage();

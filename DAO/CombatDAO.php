@@ -10,13 +10,24 @@ class CombatDAO extends Controller {
     /* C : CREATE */
 
     // méthode permettant d'ajouter un combat à la BDD
-    public function create(Pokemon $pokemon1, Pokemon $pokemon2, int $score1, int $score2, int $idJoueur2 = NULL) : bool {
+    public function create(
+        /* Pokémon du joueur 1 = le joueur connecté */
+        Pokemon $pokemon1, 
+        /* Pokémon du joueur 2 */
+        Pokemon $pokemon2,
+        /* score joueur 1 */
+        int $score1, 
+        /* score joueur 2 = adversaire */
+        int $score2, 
+        /* par défaut, l'adversaire est l'ordinateur */
+        int $idJoueur2 = NULL
+    ) : bool {
         /* connexion à la BDD */
         $this->dbCo = connectToDB();
 
         /* récupération des données à envoyer */
-        $idPokemon1 = 1; // test
-        $idPokemon2 = 2; // test
+        $idPokemon1 = 1; // A FAIRE
+        $idPokemon2 = 2; // A FAIRE
 
         $binding = array(
             ':id1' => $idPokemon1,
@@ -46,7 +57,6 @@ class CombatDAO extends Controller {
         // binding + exécution de la requête
         try {
             $query->execute($binding);
-            return true;
         }
         catch (PDOException $e) {
             echo $e->getMessage();

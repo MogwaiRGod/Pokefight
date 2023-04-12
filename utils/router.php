@@ -1,14 +1,11 @@
 <?php
 
-// à cause du Rewriting de l'URL, il y a par défaut un paramètre (vide) dans l'URL => $_GET a un élément
-// s'il y a des paramètres dans l'URL
-
 // récupération des composants de l'URL
 $params = explode(
     '/',
     /* On a défini dans le .htaccess que, dans l'URL, les paramètres seraient nommés p ;
     on récupère donc dans $_GET (car c'est avec la méthode GET que les paramètres apparaissent dans l'URL)
-    la VALEUR des paramètres */
+    la VALEUR des paramètres avec 'p'*/
     $_GET['p']
 );
 
@@ -23,19 +20,27 @@ $params = explode(
 if ($params[0]) {
     $controller = $params[0];
 
-} else {
+} 
+else {
     // pas de paramètre => page d'accueil
     $controller = 'Home';
 }
+
+// s'il y a un deuxième paramètre -> définit la méthode du controller
 if (isset($params[1])) {
     $method = $params[1];
-} else {
-    $method = 'Index';
+} 
+// sinon : index par défaut
+else {
+    $method = 'index';
 }
+
+// dernier paramètre : arguments de la méthode appelée
 if (isset($params[2])) {
-    // echo 'ok';
     $args = $params[2];
-} else {
+} 
+// pas d'arguments par défaut
+else {
     $args = '';
 }
 
@@ -43,7 +48,6 @@ if (isset($params[2])) {
 $called = 'controllers/' . $controller . '.php';
 // on importe le controller correspondant
 require ($called);
-// echo $called;
 
 // si une méthode a été entrée dans l'URL => 
 // vérification qu'elle existe

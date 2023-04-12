@@ -177,10 +177,12 @@ class Pokemon {
                 $user = new JoueurDAO;
                 $_SESSION['score'] += $score[0];
                 $user->update($_SESSION['idUser'], "score", $_SESSION['score']);
-                // unset($user);
+                // économie de mémoire
+                unset($user);
 
                 // envoi des données du combat à la BDD
                 $combat->create($poke1, $poke2, $score[0], $score[1]);
+                unset($combat);
                 return;
             }
             affichageSequentiel($combattants[!$tour] . "<br><hr>");            

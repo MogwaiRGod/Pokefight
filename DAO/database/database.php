@@ -1,7 +1,7 @@
 <?php
 
 // fonction permettant de se connecter à la BDD et retournant la représentation
-// (Objet PDO) de cette connexion
+// (Objet PDO) de cette connexion OU faux si elle a échoué
 function connectToDB() {
     // import des infos BDD
     include_once(ROOT . "/DAO/database/db_info.php");
@@ -19,8 +19,6 @@ function connectToDB() {
     try {
         /* Objet PDO : instancie (représente) une co vers une BDD */
         $dbCo = new PDO(
-            /* DSN = Data Source Name = chaîne contenant toutes les informations
-            nécessaires pour se connecter à la BDD */
             "mysql:host=" . $host . ";dbname=" . "$dbName",
             $user,
             $pass
@@ -34,6 +32,9 @@ function connectToDB() {
     }
     catch (PDOException $e) {
         echo $e->getMessage();
+        return false;
     }
+    // on retourne la connexion    
     return $dbCo;
+
 }

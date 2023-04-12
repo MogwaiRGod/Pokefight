@@ -1,7 +1,7 @@
 <?php
 /**
  * !!!
- * à modifier selon les données d'accès à la BDD 
+ * à modifier
  * !!!
  */
 

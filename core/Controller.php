@@ -11,7 +11,8 @@ abstract class Controller {
     /* SET */
 
     // méthode permettant d'ajouter des données au contenu à envoyer
-    public function set($data){
+    // data : tableau associatif
+    public function set($data) : void {
         // array_merge() : concatène des tableaux
         $this->content = array_merge($this->content, $data);
     }
@@ -19,7 +20,7 @@ abstract class Controller {
     /* LOGIQUE METIER */
 
     // méthode permettant d'afficher une page du répertoire views, selon le nom du fichier entré en argument
-    public function render($fileName) {
+    public function render($fileName) : void {
         /* extract($tableau_associatif) : extrait les clefs du tableau associatif et les déclare sous forme de variables
         dans le script */
         // extrait les clefs du contenu à envoyer et en instancie les variables

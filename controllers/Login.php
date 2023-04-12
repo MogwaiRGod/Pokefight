@@ -2,19 +2,18 @@
 
 // import de la fonction permettant de se connecter à la BDD
 require_once (ROOT . "/DAO/database/database.php");
-// // import des données d'accès à la BDD
-// require_once (ROOT . "/DAO/database/db_info.php");
 
-// controller gérant la connexion d'un utilisateur
+// controller gérant la paxe de connexion d'un utilisateur
 class Login extends Controller {
-    // hérite de $content = [] de la class Controller
+    // connexion BDD
     private $dbCo;
 
     // méthode vérifiant si l'utilisateur tentant de se connecter existe
+    // $data est un tableau associatif contenant les données de connexion
     private function checkUser($data) : bool {
         /* connexion à la BDD */
         $this->dbCo = connectToDB();
-        var_dump($data);
+
         // récupération des données de connexion
         $pseudo = $data['logUsername'];
         $password = $data['logPw'];
@@ -42,11 +41,10 @@ class Login extends Controller {
             return false;
         }
 
-        // redirection
-        return false;
+        return true;
     }
 
-    // fonction permettant de récupérer l'ID d'un utilisateur existant
+    // fonction permettant de récupérer l'ID d'un utilisateur existant selon son nom d'utilisateur
     // retourne -1 si une erreur est survenue
     private function getId($username) : int{
         /* connexion à la BDD */
@@ -112,10 +110,12 @@ class Login extends Controller {
         return $result['score'];
     }
 
-    public function log() {
-        // si l'utilisateur existe
+    // méthode permettant de logguer un utilisateur
+    public function log() : bool {
+        // données de connexion
         $data = $_POST;
-        var_dump($data);	
+
+        // si l'utilisateur existe	
         if ($this->checkUser($_POST)) {
             // on le log <=> on met les infos que l'on souhaite dans $_SESSION
             $_SESSION['userName'] = $_POST['logUsername'];

@@ -1,18 +1,18 @@
 <?php
 
-// controller gérant l'inscription d'un utilisateur
+require_once ROOT . "utils/fonctions.php";
+
+// controller de la page gérant l'inscription d'un utilisateur
 class SignIn extends Controller {
-    // hérite de $content = [] de la class Controller
+
+    // hérite de render($fileName) qui affiche une page contenant les clefs => valeur de $content
 
     // méthode affichant le formulaire d'inscription
     public function index() {
         $this->render('signin');
     }
 
-    // hérite de set($data) qui ++ des données à $content
-    // hérite de render($fileName) qui affiche une page contenant les clefs => valeur de $content
-
-    // méthode essayant d'ajouter un utilisateur à la BDD
+    // méthode permettant d'ajouter un utilisateur à la BDD
     // et affichant un message selon si l'opération a été un succès ou non
     public function addJoueur() {
         // crée un objet UserDAO
@@ -28,18 +28,20 @@ class SignIn extends Controller {
             echo $e->getMessage();
             return false;
         }
-        // affichage de la requête réussie
-        echo "Inscription enregistrée";
-        // // si l'opération est un succès
-        // $info['message'] = [
-        //     'msg' => 'Utilisateur créé avec succès'
-        // ];
 
         // on ajoute les infos pertinentes de l'utilisateur à la superglobale $_SESSION
-        $_SESSION['idUser'] = 1; /* TEST */
+        $idUser = $newJoueur->read(['pseudo' => $_POST['iptUsername']], 'id_joueur');
+        $_SESSION['idUser'] = $idUser;
         $_SESSION['userName'] = $_POST['iptUsername'];
-        $_SESSION['score'] = 0; /* par défaut */
+        $_SESSION['score'] = 0; /* 0 par défaut */
 
+        // ? affichage d'un message court attestant de la réussit de l'opération ?
+
+        // redirection vers l'accueil (dashboard)
+        $this->render('home');
+
+        unset($newJoueur);
+        
         return true;
     }
 }
