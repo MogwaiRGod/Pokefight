@@ -95,6 +95,29 @@ class JoueurDAO extends Controller {
     // fonction permettant de màj une donnée de l'utilisateur sélectionné par son ID
     // selon le nom de la donnée, et la valeur de la donnée ($data)
     public function update(int $id, String $dataName, $data) : bool {
+        // connexion à la BDD
+        $this->dbCo = connectToDB();
+
+        // requête pour màj une donnée de l'utilisateur dans la BDD
+        $statement = "
+            UPDATE `Joueur` 
+            SET `$dataName` = '$data' 
+            WHERE `Joueur`.`id_joueur` = :id; 
+        ";
+        // préparation de la requête
+        $query = $this->dbCo->prepare($statement);
+
+        // binding des valeurs
+        $query->bindValue(':id', $id);
+        // exécution de la requête
+        try {
+            $query->execute();
+            return true;
+        }
+        catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
         return true;
     } // fin update
 

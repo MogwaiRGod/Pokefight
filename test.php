@@ -5,7 +5,7 @@
  */
 include 'utils/init.php';
 // tests méthodes de base pokemon
-$poke = new Pokemon("Taupikeau", "eau");
+$poke = new Pokemon("Triopikeau", "eau");
 // echo $poke->getNom() . "<br>";
 // echo $poke->getPV() . "<br>";
 // echo $poke->getPVMax() . "<br>";

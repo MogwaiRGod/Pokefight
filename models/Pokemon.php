@@ -1,4 +1,5 @@
 <?php
+require_once ROOT . "utils/fonctions.php";
 
 class Pokemon {
     private $nom;
@@ -139,7 +140,7 @@ class Pokemon {
     }
 
     // méthode statique occasionnant un combat entre 2 pokémons
-    public static function combat(Pokemon $poke1, Pokemon $poke2, $seuil = 40) : void {
+    public static function combat(Pokemon $poke1, Pokemon $poke2, $seuil = 150) : void {
         // on instancie un combat
         $combat = new CombatDAO();
 
@@ -151,32 +152,39 @@ class Pokemon {
         $tour = mt_rand(0,1);
 
         // début du combat
-        echo "Début du combat : " . $combattants[$tour]->getNom() . " VS. " . $combattants[!$tour]->getNom() . "<hr>";
+        affichageSequentiel("Début du combat : " . $combattants[$tour]->getNom() . " VS. " . $combattants[!$tour]->getNom() . "<hr>");
         // tant que les 2 pokémons sont en vie
         while ($poke1->estVivant() && $poke2->estVivant()) {
             // ils s'attaquent l'un après l'autre
             // vérification que le pokémon dont c'est le tour a suffisamment de PV ; si non
             if ($combattants[$tour]->getPV() <= $seuil) {
                 // il boit une potion
-                $combattants[$tour]->boitPotion(new Potion("Cokemon", mt_rand(20, 50)));
+                affichageSequentiel($combattants[$tour]->boitPotion(new Potion("Cokemon", mt_rand(20, 50))));
             }
             // si oui, il attaque le pokémon
             else {
-                $combattants[$tour]->attaque($combattants[!$tour]);
+                affichageSequentiel($combattants[$tour]->attaque($combattants[!$tour]));
             }
             // on affiche à chaque fois les points de vie du pokémon brutalisé
             // s'il est KO : fin du combat
             if (!$combattants[!$tour]->estVivant()) {
                 // affichage du message de fin
-                echo "<hr>" . $combattants[$tour]->getNom() . " a vaincu " . $combattants[!$tour]->getNom();
+                affichageSequentiel("<hr>" . $combattants[$tour]->getNom() . " a vaincu " . $combattants[!$tour]->getNom());
                 // on ajoute les scores
                 $score[$tour] = 3;
                 $score[!$tour] = 0;
+                // màj des données utilisateur
+                $user = new JoueurDAO;
+                $_SESSION['score'] += $score[0];
+                $user->update($_SESSION['idUser'], "score", $_SESSION['score']);
+                // unset($user);
+
                 // envoi des données du combat à la BDD
                 $combat->create($poke1, $poke2, $score[0], $score[1]);
                 return;
             }
-            echo $combattants[!$tour] . "<br><hr>";
+            affichageSequentiel($combattants[!$tour] . "<br><hr>");            
+
             // on change le tour
             $tour = !$tour; 
         }

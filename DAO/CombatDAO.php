@@ -48,7 +48,7 @@ class CombatDAO extends Controller {
             $query->execute($binding);
             return true;
         }
-        catch (PDOException $e){
+        catch (PDOException $e) {
             echo $e->getMessage();
             return false;
         }
