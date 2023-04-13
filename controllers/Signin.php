@@ -35,13 +35,13 @@ class SignIn extends Controller {
         $_SESSION['userName'] = $_POST['iptUsername'];
         $_SESSION['score'] = 0; /* 0 par défaut */
 
-        // ? affichage d'un message court attestant de la réussit de l'opération ?
+        // ? affichage d'un message court attestant de la réussite de l'opération ?
 
         // redirection vers l'accueil (dashboard)
         $this->render('home');
 
         unset($newJoueur);
-        
+
         return true;
     }
 }

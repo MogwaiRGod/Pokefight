@@ -162,7 +162,32 @@ class JoueurDAO extends Controller {
     /* D : DELETE */
     // méthode permettant de supprimer un utilisateur de la BDD selon son ID
     // retourne un booléen selon l'issue de l'opération
-    public function delete($id) {
+    // ! A TESTER !
+    public function delete($id): bool {
+        // connexion à la BDD
+        $this->dbCo = connectToDB();
+
+        // requête pour supprimer une rangée de la table Joueur dans la BDD
+        $statement = "
+            DELETE
+            FROM `Joueur` 
+            WHERE `id_joueur` = :id; 
+        ";
+
+        // préparation de la requête
+        $query = $this->dbCo->prepare($statement);
+
+        // binding de l'ID
+        $query->bindValue(':id', $id);
+
+        // exécution
+        try {
+            $query->execute();
+        }
+        catch (PDOException $e) {
+            return false;
+        }
+        return true;
     } // fin delete
 
 } // fin JoueurDAO

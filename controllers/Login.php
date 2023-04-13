@@ -46,7 +46,7 @@ class Login extends Controller {
 
     // fonction permettant de récupérer l'ID d'un utilisateur existant selon son nom d'utilisateur
     // retourne -1 si une erreur est survenue
-    private function getId($username) : int{
+    private function getId($username) : int {
         /* connexion à la BDD */
         $this->dbCo = connectToDB();
 

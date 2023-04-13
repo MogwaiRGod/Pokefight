@@ -152,7 +152,7 @@ class Pokemon {
         $tour = mt_rand(0,1);
 
         // début du combat
-        affichageSequentiel("Début du combat : " . $combattants[$tour]->getNom() . " VS. " . $combattants[!$tour]->getNom() . "<hr>");
+        affichageSequentiel("<h3>Début du combat : " . $combattants[$tour]->getNom() . " VS. " . $combattants[!$tour]->getNom() . "</h3><hr>");
         // tant que les 2 pokémons sont en vie
         while ($poke1->estVivant() && $poke2->estVivant()) {
             // ils s'attaquent l'un après l'autre
@@ -169,7 +169,7 @@ class Pokemon {
             // s'il est KO : fin du combat
             if (!$combattants[!$tour]->estVivant()) {
                 // affichage du message de fin
-                affichageSequentiel("<hr>" . $combattants[$tour]->getNom() . " a vaincu " . $combattants[!$tour]->getNom());
+                affichageSequentiel("<hr><h3>" . $combattants[$tour]->getNom() . " a vaincu " . $combattants[!$tour]->getNom() . "</h3>");
                 // on ajoute les scores
                 $score[$tour] = 3;
                 $score[!$tour] = 0;

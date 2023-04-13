@@ -32,26 +32,9 @@ else {
             <button>POTION</button>
         </div>
     </div>
-    <button id="btn-new-cbt">Nouveau combat</button>
-    <button id="retour">Retour</button>
     <?php
 }
 ?>
     </div>
-    <script>
-        /* Nouveau combat */
-        let newCombat = document.getElementById("btn-new-cbt");
-        newCombat.addEventListener('click', () => {
-            // rafraîchit la page
-            location.href='<?=WEBROOT?>Combat/index';
-      });
-
-        /* Retour */
-        let retour = document.getElementById("retour");
-        retour.addEventListener('click', () => {
-            // rafraîchit la page
-            location.href='<?=WEBROOT?>';
-      });
-    </script> 
 </body>
 </html>
